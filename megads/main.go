@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"strings"
 	"strconv"
-
 	"io"
 	"os/exec"
 	"bytes"
@@ -17,8 +16,8 @@ import (
 func input(param string) bool {
 
 	param = strings.Replace(param, "\n","", -1)
-	if len(param) <= 3 {
-		one := strings.Split(param, ";")
+	if len(param) == 11 {
+		one := strings.Split(param, " ")
 
 		one1, err := strconv.Atoi(one[0])
 		//fmt.Printf("one1 %v\n", one1)
@@ -26,16 +25,16 @@ func input(param string) bool {
 			//fmt.Printf("%v", err)
 			return false
 		}
-		one2, err := strconv.Atoi((one[1]))
+		/*one2, err := strconv.Atoi((one[1]))
 		//fmt.Printf("one2 %v\n", one2)
 		if err != nil {
 			//fmt.Printf("%v", err)
 			return false
 
 		}
-
-		if (one1 > 0) && (one1 <= 6) {
-			if (one2 == 0) || (one2 == 1) {
+		*/
+		if (one1 >= 0) && (one1 <= 6) {
+			if (one[1] == "media-err" ) || (one[1] == "other-err") {
 				return true
 			}
 		}
@@ -46,12 +45,12 @@ func input(param string) bool {
 
 func main() {
 
-	reader1 := bufio.NewReader(os.Stdin)
-	//fmt.Print("set Slot number and Mediad Error = 1 or Other error = 2 : ")
-	text, _ := reader1.ReadString('\n')
-	//fmt.Println(text)
+	//reader1 := bufio.NewReader(os.Stdin)
+		//fmt.Print("set Slot number and Mediad Error = 1 or Other error = 2 : ")
+	//text, _ := reader1.ReadString('\n')
+		//fmt.Println(text)
 
-	//text := string("3;1")
+	text := string("0 other-err")
 	if input(text) == false{
 		fmt.Println("Wrong Input")
 		os.Exit(1)
@@ -59,16 +58,23 @@ func main() {
 
 
 	slotkey := string("Slot Number")
-	num := strings.Split(text, ";")
-	counternum, err := strconv.Atoi(num[1])
-	if err != nil {
-		//fmt.Printf("%v", err)
+	num := strings.Split(text, " ")
+	fmt.Printf("text   %v\n", text)
+	counternum := int(1)
+
+	if num[1] == "media-err" {
+		counternum = int(0)
 	}
+
+	fmt.Printf("counternum  %v\n", counternum)
+	//if err != nil {
+	//	//fmt.Printf("%v", err)
+	//}
 	counter := [2]string{"Media","Other"}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	1c1 := exec.Command("cat", "data")
+	c1 := exec.Command("cat", "data")
 	//c1 := exec.Command ("megacli", "-PDList", "-aALL" )
 	c2 := exec.Command("egrep", "Enclosure Device ID:|Slot Number:|Inquiry Data:|Error Count:|state")
 
@@ -101,8 +107,6 @@ func main() {
 			fmt.Println("Read Error:", err)
 			return
 		}
-		// разделяем входящую строку через :
-
 		splited := strings.Split(strings.Replace(scanner, "\n", "", -1), ":")
 			//fmt.Printf("%v\n", num)
 			//fmt.Printf("%v\n", counternum)
