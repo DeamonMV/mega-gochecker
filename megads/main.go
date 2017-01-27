@@ -45,12 +45,12 @@ func input(param string) bool {
 
 func main() {
 
-	//reader1 := bufio.NewReader(os.Stdin)
+	reader1 := bufio.NewReader(os.Stdin)
 		//fmt.Print("set Slot number and Mediad Error = 1 or Other error = 2 : ")
-	//text, _ := reader1.ReadString('\n')
+	text, _ := reader1.ReadString('\n')
 		//fmt.Println(text)
 
-	text := string("0 other-err")
+	//text := string("0 other-err")
 	if input(text) == false{
 		fmt.Println("Wrong Input")
 		os.Exit(1)
@@ -59,14 +59,14 @@ func main() {
 
 	slotkey := string("Slot Number")
 	num := strings.Split(text, " ")
-	fmt.Printf("text   %v\n", text)
+	//fmt.Printf("text   %v\n", text)
 	counternum := int(1)
 
 	if num[1] == "media-err" {
 		counternum = int(0)
 	}
 
-	fmt.Printf("counternum  %v\n", counternum)
+	//fmt.Printf("counternum  %v\n", counternum)
 	//if err != nil {
 	//	//fmt.Printf("%v", err)
 	//}
@@ -74,8 +74,8 @@ func main() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	c1 := exec.Command("cat", "data")
-	//c1 := exec.Command ("megacli", "-PDList", "-aALL" )
+	//c1 := exec.Command("cat", "data")
+	c1 := exec.Command ("megacli", "-PDList", "-aALL" )
 	c2 := exec.Command("egrep", "Enclosure Device ID:|Slot Number:|Inquiry Data:|Error Count:|state")
 
 	r, w := io.Pipe()
@@ -92,6 +92,7 @@ func main() {
 	c2.Wait()
 
 	reader := bufio.NewReader(outbuf)
+
 
 	i := 0
 	slot := 0
@@ -140,5 +141,9 @@ func main() {
 
 	//if err := scanner.Err(); err != nil {
 	//	log.Fatal(err)
+	}
+	if i < 2 {
+		fmt.Println("Nothing")
+
 	}
 }
