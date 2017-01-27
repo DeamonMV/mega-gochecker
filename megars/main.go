@@ -10,9 +10,8 @@ import (
 
 func main() {
 
-	c1 := exec.Command("cat", "MegaSAS.log")
-	//c1 := exec.Command ("megacli", "-LDInfo", "-Lall", "-aALL" )
-	c2 := exec.Command("grep", "Code")
+	c1 := exec.Command ("megacli", "-LDInfo", "-Lall", "-aALL" )
+	c2 := exec.Command("grep", "State")
 
 	r, w := io.Pipe()
 	c1.Stdout = w
@@ -32,10 +31,11 @@ func main() {
 		splited := strings.Split(stdout, ":")
 		rmspace := strings.Replace(splited[1], " ", "", -1)
 		fmt.Printf("%v", rmspace)
-	//	fmt.Printf("%v", stdout)
-	} else
-	{
-	fmt.Printf("Nothing\n")
+
+		} else {
+
+		fmt.Printf("Nothing\n")
+		}
 	}
 
-}
+
