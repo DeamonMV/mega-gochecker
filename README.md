@@ -19,7 +19,7 @@ There are two programm with which you can grep info from megacli util, one you c
 
 *megadcvr* - megacli discovery, return count of slots involved in raid
 
-Exampke:
+Example:
 
       #./megadcvr
 
