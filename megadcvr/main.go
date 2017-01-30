@@ -17,7 +17,7 @@ func main() {
 	slotkey := string("Slot Number")
 
 	//c1 := exec.Command("cat", "data")
-	c1 := exec.Command("megacli", "-PDList", "-aALL")
+	c1 := exec.Command("megacli", "-PDList", "-aALL", "-NoLog")
 	c2 := exec.Command("egrep", "Enclosure Device ID:|Slot Number:|Inquiry Data:|Error Count:|state")
 
 	r, w := io.Pipe()
