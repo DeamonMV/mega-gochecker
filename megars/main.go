@@ -10,7 +10,7 @@ import (
 
 func main() {
 
-	c1 := exec.Command ("megacli", "-LDInfo", "-Lall", "-aALL" )
+	c1 := exec.Command ("megacli", "-LDInfo", "-Lall", "-aALL", "-NoLog")
 	c2 := exec.Command("grep", "State")
 
 	r, w := io.Pipe()
